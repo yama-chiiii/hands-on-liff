@@ -17,6 +17,7 @@ function App() {
         liff.init({
             liffId,
             withLoginOnExternalBrowser: true,
+            //@ts-ignore
             mock: isDev,
         })
             .then(async () => {
