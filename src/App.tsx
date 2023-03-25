@@ -32,7 +32,7 @@ function App() {
 
     return (
         <div className="App">
-            <h1>はんずおんちゅーとりある</h1>
+            <h1>はんずおんちゅーとりある!</h1>
             {message && <p>{message}</p>}
             {error && (
                 <p>
