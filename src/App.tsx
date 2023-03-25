@@ -1,4 +1,5 @@
 import liff from "@line/liff";
+import { LiffMockPlugin } from "@line/liff-mock";
 import { useEffect, useState } from "react";
 import "./App.css";
 
@@ -6,12 +7,20 @@ function App() {
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
 
+    liff.use(new LiffMockPlugin());
+
     useEffect(() => {
+        const liffId = import.meta.env.VITE_LIFF_ID;
+
+        const isDev = process.env.NODE_ENV === "development";
+
         liff.init({
-            liffId: import.meta.env.VITE_LIFF_ID,
+            liffId,
             withLoginOnExternalBrowser: true,
+            mock: isDev,
         })
             .then(async () => {
+                if (!liff.isInClient()) liff.login();
                 const profile = await liff.getProfile();
                 setMessage(`Hello,${profile.displayName}!`);
             })
@@ -23,7 +32,7 @@ function App() {
 
     return (
         <div className="App">
-            <h1>create-liff-app</h1>
+            <h1>はんずおんちゅーとりある</h1>
             {message && <p>{message}</p>}
             {error && (
                 <p>
